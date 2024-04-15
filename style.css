@@ -38,9 +38,10 @@ main {
 
 #setplayers,
 #buy,
-#pay,#buy-text {
+#pay,#main-text {
     display: none;
 }
+
 
 #container {
     max-width: 600px;
