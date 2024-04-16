@@ -10,13 +10,17 @@
 </head>
 
 <body>
+    <div class="logo">
+        <img src="images/logo.png" height="100%">
+    </div>
+    <div class="buttons">
+
+        <button id="scanner" class="capture-btn"><?xml version="1.0" ?><svg viewBox="0 0 448 512" xmlns="http://www.w3.org/2000/svg"><path d="M160 32H32C14.33 32 0 46.33 0 64v128c0 17.67 14.33 32 32 32h128c17.67 0 32-14.33 32-32V64C192 46.33 177.7 32 160 32zM128 160H64V96h64V160zM160 288H32c-17.67 0-32 14.33-32 32v128c0 17.67 14.33 32 32 32h128c17.67 0 32-14.33 32-32v-128C192 302.3 177.7 288 160 288zM128 416H64v-64h64V416zM416 32h-128c-17.67 0-32 14.33-32 32v128c0 17.67 14.33 32 32 32h128c17.67 0 32-14.33 32-32V64C448 46.33 433.7 32 416 32zM384 160h-64V96h64V160zM352 480h32v-32h-32V480zM416 320h-64V288h-96v192h64v-96h32v32h96V288h-32V320zM416 480h32v-32h-32V480z"/></svg></button>
+
+        </div>
     <main>
 
-        <div class="buttons">
-
-            <button id="scanner" class="capture-btn"><?xml version="1.0" ?><svg viewBox="0 0 448 512" xmlns="http://www.w3.org/2000/svg"><path d="M160 32H32C14.33 32 0 46.33 0 64v128c0 17.67 14.33 32 32 32h128c17.67 0 32-14.33 32-32V64C192 46.33 177.7 32 160 32zM128 160H64V96h64V160zM160 288H32c-17.67 0-32 14.33-32 32v128c0 17.67 14.33 32 32 32h128c17.67 0 32-14.33 32-32v-128C192 302.3 177.7 288 160 288zM128 416H64v-64h64V416zM416 32h-128c-17.67 0-32 14.33-32 32v128c0 17.67 14.33 32 32 32h128c17.67 0 32-14.33 32-32V64C448 46.33 433.7 32 416 32zM384 160h-64V96h64V160zM352 480h32v-32h-32V480zM416 320h-64V288h-96v192h64v-96h32v32h96V288h-32V320zM416 480h32v-32h-32V480z"/></svg></button>
-
-            </div>
+     
         <div id="container">
 
             <video id="video" width="100%" height="auto"></video>
@@ -27,18 +31,22 @@
             <button id="cancelCapture" class="capture-btn cancel">Cancel Capturing</button>
 
             <button id="setplayers" class="capture-btn">Set Players</button>
+            <button id="paymoney" class="capture-btn">Pay</button>
+            <button id="collectmoney" class="capture-btn">Collect</button>
             <button id="buy" class="capture-btn">Buy Property</button>
             <button id="pay" class="capture-btn">Pay Rent</button>
            
         </div>
-        <div class="logo">
-            <img src="images/logo.png" height="100%">
-        </div>
+       
         <div class="players-box">
             <p id="main-text">Select the Player who want to buy this Property:</p>
             
         </div>
-        
+        <div class="moneyOptions">
+            <h1 id="moneytext">How Much You Want To Pay:</h1>
+            <button id="_100" class="capture-btn">100$</button>
+            <button id="_200" class="capture-btn">200$</button>      
+        </div>
 
 
     </main>

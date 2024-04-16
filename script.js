@@ -8,7 +8,7 @@ let players = []
 let property
 let playersBalance = {
     playerId1: 500,
-    playerId2: 1500,
+    playerId2: 500,
     playerId3: 1500,
     playerId4: 1500,
 }
@@ -72,6 +72,9 @@ let baughtprops = []
 let playercode
 let notInList
 let playerclickedforRent = false
+let playerclickedforpaymoney = false
+let playerclickedforcollectmoney = false
+
 
 function checkPropertyOwner(propertycode) {
     baughtProperties.playerId1.forEach((e) => {
@@ -100,12 +103,150 @@ function checkPropertyOwner(propertycode) {
 function getOptions(codeid) {
 
     if ((codeid).includes("player")) {
-        document.querySelector("#setplayers").style.display = "block"
-        document.querySelector("#setplayers").addEventListener("click", (e) => {
-            getPlayers(codeid)
-            document.querySelector("#setplayers").style.display = "none"
-        })
+        if (players.includes(codeid)) {
+            console.log(`Already exit`);
+            document.querySelector("#paymoney").style.display = "block"
+            document.querySelector("#collectmoney").style.display = "block"
+            document.querySelector("#paymoney").addEventListener("click", (e) => {
+                console.log(`Pay Clicked`);
+                playerclickedforpaymoney = false
+                document.querySelector(".moneyOptions").style.display = "flex"
+                document.querySelector("#container").style.display = "none"
+                if (playerclickedforpaymoney == false) {
+                    playerclickedforpaymoney = true
+                    document.querySelector("#_100").addEventListener("click", (e) => {
+                        if (codeid !== "null") {
+                            document.querySelector(`.${codeid}`).innerText = `Balance: ${playersBalance[codeid] -= 100}`
+
+                            if (playersBalance[codeid] < 0) {
+
+                              
+                                document.querySelector(`.${codeid}`).innerText = `Balance: 0`
+
+                              
+                                playersBalance[codeid] = 0
+                                for (let index = 0; index < baughtProperties[codeid].length; index++) {
+                                    for (let i = 0; i < baughtprops.length; i++) {
+                                        if (baughtProperties[codeid].includes(baughtprops[i])) {
+                                            levels[baughtprops[i]] = 1
+                                            baughtprops.splice(i, 1)
+                                            console.log(baughtprops);
+                                            break
+                                        }
+                                    }
+
+                                }
+
+                                for (let index = 0; index <= 22; index++) {
+                                    baughtProperties[codeid].pop()
+
+                                }
+                                document.querySelector(`.${codeid.replace("Id","")}`).className += " dead"
+                            }
+
+
+                            document.querySelector(".moneyOptions").style.display = "none"
+                            document.querySelector("#paymoney").style.display = "none"
+                            document.querySelector("#collectmoney").style.display = "none"
+                            codeid = "null"
+                        }
+
+                    }, { once: true })
+
+
+
+                    document.querySelector("#_200").addEventListener("click", (e) => {
+                        if (codeid !== "null") {
+                            document.querySelector(`.${codeid}`).innerText = `Balance: ${playersBalance[codeid] -= 200}`
+                            document.querySelector(".moneyOptions").style.display = "none"
+                            document.querySelector("#paymoney").style.display = "none"
+                            document.querySelector("#collectmoney").style.display = "none"
+                            if (playersBalance[codeid] < 0) {
+
+                              
+                                document.querySelector(`.${codeid}`).innerText = `Balance: 0`
+
+                              
+                                playersBalance[codeid] = 0
+                                for (let index = 0; index < baughtProperties[codeid].length; index++) {
+                                    for (let i = 0; i < baughtprops.length; i++) {
+                                        if (baughtProperties[codeid].includes(baughtprops[i])) {
+                                            levels[baughtprops[i]] = 1
+                                            baughtprops.splice(i, 1)
+                                            console.log(baughtprops);
+                                            break
+                                        }
+                                    }
+
+                                }
+
+                                for (let index = 0; index <= 22; index++) {
+                                    baughtProperties[codeid].pop()
+
+                                }
+                                document.querySelector(`.${codeid.replace("Id","")}`).className += " dead"
+                            }
+                            codeid = "null"
+                        }
+                    }, { once: true })
+
+
+                }
+
+
+
+
+            })
+            document.querySelector("#collectmoney").addEventListener("click", (e) => {
+                console.log(`Collect Clicked`);
+                document.querySelector("#moneytext").innerText = "How Much You Want To Collect:"
+                document.querySelector(".moneyOptions").style.display = "flex"
+                document.querySelector("#container").style.display = "none"
+                playerclickedforcollectmoney = false
+                if (playerclickedforcollectmoney == false) {
+                    playerclickedforcollectmoney = true
+                    document.querySelector("#_100").addEventListener("click", (e) => {
+                        if (codeid !== "null") {
+                            document.querySelector(`.${codeid}`).innerText = `Balance: ${playersBalance[codeid] += 100}`
+                            document.querySelector(".moneyOptions").style.display = "none"
+                            document.querySelector("#paymoney").style.display = "none"
+                            document.querySelector("#collectmoney").style.display = "none"
+                            codeid = "null"
+                        }
+
+                    }, { once: true })
+
+
+
+                    document.querySelector("#_200").addEventListener("click", (e) => {
+                        if (codeid !== "null") {
+                            document.querySelector(`.${codeid}`).innerText = `Balance: ${playersBalance[codeid] += 200}`
+                            document.querySelector(".moneyOptions").style.display = "none"
+                            document.querySelector("#paymoney").style.display = "none"
+                            document.querySelector("#collectmoney").style.display = "none"
+                            codeid = "null"
+                        }
+                    }, { once: true })
+
+
+                }
+
+
+            })
+
+        }
+        else {
+
+            document.querySelector("#setplayers").style.display = "block"
+            document.querySelector("#setplayers").addEventListener("click", (e) => {
+                getPlayers(codeid)
+                document.querySelector("#setplayers").style.display = "none"
+                document.querySelector("#container").style.display = "none"
+            })
+        }
     }
+
+
     else if ((codeid).includes("property")) {
 
         if (baughtprops.includes(codeid)) {
@@ -116,6 +257,8 @@ function getOptions(codeid) {
                 document.querySelector(".players-box").style.zIndex = "2"
                 document.querySelector("#main-text").innerText = "Select the player who is going to pay rent: "
                 document.querySelector("#main-text").style.display = "block"
+                document.querySelector("#container").style.display = "none"
+
 
                 if (players.includes("playerId1")) {
                     document.querySelector(".player1").addEventListener('click', (e) => {
@@ -132,7 +275,7 @@ function getOptions(codeid) {
                                     }
 
                                     if (playersBalance["playerId1"] < 0) {
-                                        
+
                                         if (levels[codeid] < 5) {
                                             levels[codeid] -= 1
                                         }
@@ -141,20 +284,20 @@ function getOptions(codeid) {
                                         document.querySelector(`.${propertyOwner}`).innerText = `Balance: ${playersBalance[propertyOwner] -= properties[codeid][levels[codeid]]}`
                                         playersBalance["playerId1"] = 0
                                         for (let index = 0; index < baughtProperties["playerId1"].length; index++) {
-                                            for (let i = 0; i < baughtprops.length; i++) {                                                                          
+                                            for (let i = 0; i < baughtprops.length; i++) {
                                                 if (baughtProperties["playerId1"].includes(baughtprops[i])) {
                                                     levels[baughtprops[i]] = 1
                                                     baughtprops.splice(i, 1)
                                                     console.log(baughtprops);
                                                     break
                                                 }
-                                            }   
-    
+                                            }
+
                                         }
-    
+
                                         for (let index = 0; index <= 22; index++) {
                                             baughtProperties["playerId1"].pop()
-    
+
                                         }
                                         document.querySelector(".player1").className += " dead"
                                     }
@@ -210,19 +353,19 @@ function getOptions(codeid) {
                                         document.querySelector(`.${propertyOwner}`).innerText = `Balance: ${playersBalance[propertyOwner] -= properties[codeid][levels[codeid]]}`
                                         playersBalance["playerId2"] = 0
                                         for (let index = 0; index < baughtProperties["playerId2"].length; index++) {
-                                            for (let i = 0; i < baughtprops.length; i++) {                                                                          
+                                            for (let i = 0; i < baughtprops.length; i++) {
                                                 if (baughtProperties["playerId2"].includes(baughtprops[i])) {
                                                     levels[baughtprops[i]] = 1
                                                     baughtprops.splice(i, 1)
                                                     console.log(baughtprops);
                                                     break
                                                 }
-                                            }   
-    
+                                            }
+
                                         }
                                         for (let index = 0; index <= 22; index++) {
                                             baughtProperties["playerId2"].pop()
-    
+
                                         }
                                         document.querySelector(".player2").className += " dead"
                                     }
@@ -275,19 +418,19 @@ function getOptions(codeid) {
                                         document.querySelector(`.${propertyOwner}`).innerText = `Balance: ${playersBalance[propertyOwner] -= properties[codeid][levels[codeid]]}`
                                         playersBalance["playerId3"] = 0
                                         for (let index = 0; index < baughtProperties["playerId3"].length; index++) {
-                                            for (let i = 0; i < baughtprops.length; i++) {                                                                          
+                                            for (let i = 0; i < baughtprops.length; i++) {
                                                 if (baughtProperties["playerId3"].includes(baughtprops[i])) {
                                                     levels[baughtprops[i]] = 1
                                                     baughtprops.splice(i, 1)
                                                     console.log(baughtprops);
                                                     break
                                                 }
-                                            }   
-    
+                                            }
+
                                         }
                                         for (let index = 0; index <= 22; index++) {
                                             baughtProperties["playerId3"].pop()
-    
+
                                         }
                                         document.querySelector(".player3").className += " dead"
                                     }
@@ -340,19 +483,19 @@ function getOptions(codeid) {
                                         document.querySelector(`.${propertyOwner}`).innerText = `Balance: ${playersBalance[propertyOwner] -= properties[codeid][levels[codeid]]}`
                                         playersBalance["playerId4"] = 0
                                         for (let index = 0; index < baughtProperties["playerId4"].length; index++) {
-                                            for (let i = 0; i < baughtprops.length; i++) {                                                                          
+                                            for (let i = 0; i < baughtprops.length; i++) {
                                                 if (baughtProperties["playerId4"].includes(baughtprops[i])) {
                                                     levels[baughtprops[i]] = 1
                                                     baughtprops.splice(i, 1)
                                                     console.log(baughtprops);
                                                     break
                                                 }
-                                            }   
-    
+                                            }
+
                                         }
                                         for (let index = 0; index <= 22; index++) {
                                             baughtProperties["playerId4"].pop()
-    
+
                                         }
                                         document.querySelector(".player4").className += " dead"
                                     }
@@ -394,8 +537,11 @@ function getOptions(codeid) {
             document.querySelector("#buy").style.display = "block"
             document.querySelector("#buy").addEventListener("click", (e) => {
                 playerclicked = false
+
                 document.querySelector(".players-box").style.zIndex = "2"
                 document.querySelector("#main-text").style.display = "block"
+                document.querySelector("#container").style.display = "none"
+
 
 
                 if (players.includes("playerId1")) {
@@ -411,14 +557,14 @@ function getOptions(codeid) {
                                 if (playersBalance["playerId1"] < 0) {
 
                                     for (let index = 0; index < baughtProperties["playerId1"].length; index++) {
-                                        for (let i = 0; i < baughtprops.length; i++) {                                                                          
+                                        for (let i = 0; i < baughtprops.length; i++) {
                                             if (baughtProperties["playerId1"].includes(baughtprops[i])) {
                                                 levels[baughtprops[i]] = 1
                                                 baughtprops.splice(i, 1)
                                                 console.log(baughtprops);
                                                 break
                                             }
-                                        }      
+                                        }
 
                                     }
 
@@ -464,14 +610,14 @@ function getOptions(codeid) {
                                 if (playersBalance["playerId2"] < 0) {
 
                                     for (let index = 0; index < baughtProperties["playerId2"].length; index++) {
-                                        for (let i = 0; i < baughtprops.length; i++) {                                                                          
+                                        for (let i = 0; i < baughtprops.length; i++) {
                                             if (baughtProperties["playerId2"].includes(baughtprops[i])) {
                                                 levels[baughtprops[i]] = 1
                                                 baughtprops.splice(i, 1)
                                                 console.log(baughtprops);
                                                 break
                                             }
-                                        }   
+                                        }
 
                                     }
                                     for (let index = 0; index <= 22; index++) {
@@ -512,14 +658,14 @@ function getOptions(codeid) {
                                 if (playersBalance["playerId3"] < 0) {
 
                                     for (let index = 0; index < baughtProperties["playerId3"].length; index++) {
-                                        for (let i = 0; i < baughtprops.length; i++) {                                                                          
+                                        for (let i = 0; i < baughtprops.length; i++) {
                                             if (baughtProperties["playerId3"].includes(baughtprops[i])) {
                                                 levels[baughtprops[i]] = 1
                                                 baughtprops.splice(i, 1)
                                                 console.log(baughtprops);
                                                 break
                                             }
-                                        }   
+                                        }
 
                                     }
                                     for (let index = 0; index <= 22; index++) {
@@ -559,14 +705,14 @@ function getOptions(codeid) {
                                 if (playersBalance["playerId4"] < 0) {
 
                                     for (let index = 0; index < baughtProperties["playerId4"].length; index++) {
-                                        for (let i = 0; i < baughtprops.length; i++) {                                                                          
+                                        for (let i = 0; i < baughtprops.length; i++) {
                                             if (baughtProperties["playerId4"].includes(baughtprops[i])) {
                                                 levels[baughtprops[i]] = 1
                                                 baughtprops.splice(i, 1)
                                                 console.log(baughtprops);
                                                 break
                                             }
-                                        }   
+                                        }
 
                                     }
                                     for (let index = 0; index <= 22; index++) {
@@ -627,7 +773,7 @@ function getPlayers(playerCode) {
             player.className = "player player2"
             document.querySelector(".players-box").append(player)
             let playerTitile = document.createElement("h1")
-            playerTitile.innerText = "Player2"
+            playerTitile.innerText = "Ahmed"
             player.append(playerTitile)
             let cardChip = document.createElement("div")
             cardChip.className = "card-chip"
