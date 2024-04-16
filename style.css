@@ -136,7 +136,34 @@ main {
     border-radius: 10px;
     text-align: center;
 }
+.dead{
+   background-color: #1b1b1b;
+  
 
+}
+
+.dead::after{
+    content: '';
+    height: 100%;
+    width: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-image: url(images/skeleton.png);
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: center;
+}
+.dead::after{
+    content: '';
+    height: 100%;
+    width: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-color: #1b1b1bce;
+    border-radius: 10px;
+}
 .player1 {
     background-color: rgba(255, 93, 93, 0.426);
     border: 2px solid red;
