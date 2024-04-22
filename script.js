@@ -7,10 +7,10 @@ let propertyOwner
 let players = []
 let property
 let playersBalance = {
-    playerId1: 500,
-    playerId2: 500,
-    playerId3: 1500,
-    playerId4: 1500,
+    playerId1: 99,
+    playerId2: 99,
+    playerId3: 99,
+    playerId4: 99,
 }
 let levels = {
     propertyId1: 1,
@@ -74,6 +74,7 @@ let notInList
 let playerclickedforRent = false
 let playerclickedforpaymoney = false
 let playerclickedforcollectmoney = false
+let playerclickedforlevel = false
 
 
 function checkPropertyOwner(propertycode) {
@@ -120,10 +121,10 @@ function getOptions(codeid) {
 
                             if (playersBalance[codeid] < 0) {
 
-                              
+
                                 document.querySelector(`.${codeid}`).innerText = `Balance: 0`
 
-                              
+                               
                                 playersBalance[codeid] = 0
                                 for (let index = 0; index < baughtProperties[codeid].length; index++) {
                                     for (let i = 0; i < baughtprops.length; i++) {
@@ -141,7 +142,13 @@ function getOptions(codeid) {
                                     baughtProperties[codeid].pop()
 
                                 }
-                                document.querySelector(`.${codeid.replace("Id","")}`).className += " dead"
+                                document.querySelector(`.${codeid.replace("Id", "")}`).className += " dead"
+                                removePlayer(codeid)
+                                if (players.length === 1) {
+                                    winner()
+                                }
+
+
                             }
 
 
@@ -163,10 +170,10 @@ function getOptions(codeid) {
                             document.querySelector("#collectmoney").style.display = "none"
                             if (playersBalance[codeid] < 0) {
 
-                              
+
                                 document.querySelector(`.${codeid}`).innerText = `Balance: 0`
 
-                              
+                            
                                 playersBalance[codeid] = 0
                                 for (let index = 0; index < baughtProperties[codeid].length; index++) {
                                     for (let i = 0; i < baughtprops.length; i++) {
@@ -184,7 +191,12 @@ function getOptions(codeid) {
                                     baughtProperties[codeid].pop()
 
                                 }
-                                document.querySelector(`.${codeid.replace("Id","")}`).className += " dead"
+                                document.querySelector(`.${codeid.replace("Id", "")}`).className += " dead"
+                                removePlayer(codeid)
+
+                                if (players.length === 1) {
+                                    winner()
+                                }
                             }
                             codeid = "null"
                         }
@@ -251,6 +263,7 @@ function getOptions(codeid) {
 
         if (baughtprops.includes(codeid)) {
             document.querySelector("#pay").style.display = "block"
+            document.querySelector("#changelevel").style.display = "block"
             notInList = false
             document.querySelector("#pay").addEventListener("click", (e) => {
                 playerclickedforRent = false
@@ -258,7 +271,7 @@ function getOptions(codeid) {
                 document.querySelector("#main-text").innerText = "Select the player who is going to pay rent: "
                 document.querySelector("#main-text").style.display = "block"
                 document.querySelector("#container").style.display = "none"
-
+                document.querySelector("#changelevel").style.display = "none"
 
                 if (players.includes("playerId1")) {
                     document.querySelector(".player1").addEventListener('click', (e) => {
@@ -300,6 +313,13 @@ function getOptions(codeid) {
 
                                         }
                                         document.querySelector(".player1").className += " dead"
+                                        removePlayer("playerId1")
+
+
+                           
+                                        if (players.length === 1) {
+                                            winner()
+                                        }
                                     }
 
 
@@ -368,6 +388,13 @@ function getOptions(codeid) {
 
                                         }
                                         document.querySelector(".player2").className += " dead"
+                                        removePlayer("playerId2")
+
+
+                          
+                                        if (players.length === 1) {
+                                            winner()
+                                        }
                                     }
                                     console.log(levels[codeid]);
                                     codeid = "null"
@@ -433,6 +460,12 @@ function getOptions(codeid) {
 
                                         }
                                         document.querySelector(".player3").className += " dead"
+                                        removePlayer("playerId3")
+
+
+                                        if (players.length === 1) {
+                                            winner()
+                                        }
                                     }
                                     console.log(levels[codeid]);
                                     codeid = "null"
@@ -498,6 +531,12 @@ function getOptions(codeid) {
 
                                         }
                                         document.querySelector(".player4").className += " dead"
+                                        removePlayer("playerId4")
+
+
+                                        if (players.length === 1) {
+                                            winner()
+                                        }
                                     }
                                     console.log(levels[codeid]);
                                     codeid = "null"
@@ -526,6 +565,54 @@ function getOptions(codeid) {
                         }
                     }, { once: true })
                 }
+            })
+            document.querySelector("#changelevel").addEventListener("click", (e) => {
+                console.log(`changing level`);
+                playerclickedforlevel = false
+                document.querySelector(".levelOptions").style.display = "flex"
+                document.querySelector("#container").style.display = "none"
+
+                if (playerclickedforlevel == false) {
+                    playerclickedforlevel = true
+                    document.querySelector("#decreaselevel").addEventListener("click", (e) => {
+                        if (codeid !== "null") {
+                            levels[codeid] -= 1
+                            if (levels[codeid] == 0) {
+                                levels[codeid] = 1
+                                console.log(`property alerady at 1`);
+
+                            }
+                            document.querySelector(".levelOptions").style.display = "none"
+                            document.querySelector("#pay").style.display = "none"
+                            document.querySelector("#changelevel").style.display = "none"
+                            console.log(levels[codeid]);
+                            codeid = "null"
+                        }
+
+                    }, { once: true })
+
+
+
+                    document.querySelector("#increaselevel").addEventListener("click", (e) => {
+                        if (codeid !== "null") {
+                            levels[codeid] += 1
+                            if (levels[codeid] > 5) {
+                                levels[codeid] = 5
+                                console.log(`property alerady at 5`);
+
+                            }
+                            document.querySelector(".levelOptions").style.display = "none"
+                            document.querySelector("#pay").style.display = "none"
+                            document.querySelector("#changelevel").style.display = "none"
+                            console.log(levels[codeid]);
+                            codeid = "null"
+                        }
+
+                    }, { once: true })
+
+
+                }
+
             })
 
         }
@@ -577,7 +664,13 @@ function getOptions(codeid) {
                                     document.querySelector(".playerId1").innerText = `Balance: 0`
                                     playersBalance["playerId1"] = 0
                                     document.querySelector(".player1").className += " dead"
+                                    removePlayer("playerId1")
+
+
                                     console.log(baughtprops.length);
+                                    if (players.length === 1) {
+                                        winner()
+                                    }
                                 }
                                 else {
                                     baughtProperties["playerId1"].push(codeid)
@@ -628,6 +721,12 @@ function getOptions(codeid) {
                                     document.querySelector(".playerId2").innerText = `Balance: 0`
                                     playersBalance["playerId2"] = 0
                                     document.querySelector(".player2").className += " dead"
+                                    removePlayer("playerId2")
+
+
+                                    if (players.length === 1) {
+                                        winner()
+                                    }
                                 }
                                 else {
                                     baughtProperties["playerId2"].push(codeid)
@@ -676,6 +775,12 @@ function getOptions(codeid) {
                                     document.querySelector(".playerId1").innerText = `Balance: 0`
                                     playersBalance["playerId3"] = 0
                                     document.querySelector(".player3").className += " dead"
+                                    removePlayer("playerId3")
+
+
+                                    if (players.length === 1) {
+                                        winner()
+                                    }
                                 }
                                 else {
                                     baughtProperties["playerId3"].push(codeid)
@@ -723,6 +828,11 @@ function getOptions(codeid) {
                                     document.querySelector(".playerId4").innerText = `Balance: 0`
                                     playersBalance["playerId4"] = 0
                                     document.querySelector(".player4").className += " dead"
+                                    removePlayer("playerId4")
+
+                                    if (players.length === 1) {
+                                        winner()
+                                    }
                                 }
                                 else {
                                     baughtProperties["playerId4"].push(codeid)
@@ -741,6 +851,12 @@ function getOptions(codeid) {
             })
         }
     }
+    for (let index = 0; index < document.querySelector(".options").children.length; index++) {
+        document.querySelector(".options").children[index].addEventListener("click", () => {
+            document.querySelector(".options").style.display = "none"
+        })
+    }
+
 }
 
 function getPlayers(playerCode) {
@@ -878,10 +994,11 @@ document.addEventListener("DOMContentLoaded", function () {
 
         if (code) {
             resultContainer.innerText = 'QR Code Detected:';
-
             getOptions(code.data)
             isCapturing = false;
-            startCaptureBtn.innerText = 'Start Capturing';
+            document.querySelector("#container").style.display = "none"
+            document.querySelector(".options").style.display = "flex"
+
         } else {
             resultContainer.innerText = 'Scanning QR code...';
         }
@@ -891,16 +1008,21 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     }
 
-    startCaptureBtn.addEventListener('click', function () {
+    document.querySelector("#scanner").addEventListener('click', () => {
         if (!isCapturing) {
             isCapturing = true;
-            startCaptureBtn.innerText = 'Stop Capturing';
+            document.querySelector("#container").style.display = "block"
             captureQRCode();
         } else {
             isCapturing = false;
-            startCaptureBtn.innerText = 'Start Capturing';
+            document.querySelector("#container").style.display = "none"
         }
-    });
+    })
+    document.querySelector("#cancelCapture").addEventListener("click", (e) => {
+        document.querySelector("#container").style.display = "none"
+        isCapturing = false;
+    })
+
     toggleCameraBtn.addEventListener('click', function () {
         if (facingMode === 'environment') {
             facingMode = 'user';
@@ -936,6 +1058,9 @@ document.addEventListener("DOMContentLoaded", function () {
                 if (code) {
                     resultContainer.innerText = 'QR Code Detected';
                     getOptions(code.data)
+                    isCapturing = false;
+                    document.querySelector("#container").style.display = "none"
+                    document.querySelector(".options").style.display = "flex"
 
 
                 } else {
@@ -958,15 +1083,18 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 
-document.querySelector("#scanner").addEventListener("click", (e) => {
-    document.querySelector("#container").style.display = "block"
-})
+function winner() {
+    console.log(players[0]);
+    document.querySelector(".winner").style.display = "flex"
+    document.querySelector(".winner").className += " " + players[0]+ "win"
+    document.querySelector("#winnerplayer").innerText = players[0].replace("Id","")
 
 
-document.querySelector("#cancelCapture").addEventListener("click", (e) => {
-    document.querySelector("#container").style.display = "none"
-})
+}
 
-
-
-
+function removePlayer(codeid) {
+    var h = players.indexOf(codeid);
+    if (h !== -1) {
+        players.splice(h, 1);
+    }
+}

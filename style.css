@@ -18,7 +18,7 @@ main {
     width: 100%;
     display: flex;
     flex-direction: column;
-    height: 68vh;
+    height: 77vh;
     align-items: center;
     flex-wrap: wrap;
     position: relative;
@@ -40,10 +40,62 @@ main {
     z-index: 2;
 }
 
+.winner{
+    position: absolute;
+    display: none;
+    top: 30%;
+    z-index: 2;
+    padding: 0 8%;
+    width: 500px;
+    height: 300px;
+    background-color: #2b2a2a;
+    border: 2px solid rgb(100, 98, 98);
+    border-top: none;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    text-align: center;
+    border-radius: 10px;
+}
+.playerId1win{
+    box-shadow:0 0 100px 10px red;
+    
+}
+.playerId2win{
+    box-shadow:0 0 100px 10px rgb(0, 51, 255);
+}
+.playerId3win{
+    box-shadow:0 0 100px 10px rgb(0, 255, 21);
+}
+.playerId4win{
+    box-shadow:0 0 100px 10px rgb(255, 238, 0);
+}
+
+
 #setplayers,
 #buy,
-#pay,#main-text,#paymoney,#collectmoney {
+#pay,#main-text,#paymoney,#collectmoney,#changelevel,.levelOptions {
     display: none;
+}
+#decreaselevel{
+    background-color: red;
+}
+.options{
+    position: absolute;
+    display: none;
+    top: 30%;
+    z-index: 2;
+    padding: 0 8%;
+    width: 500px;
+    height: 300px;
+    background-color: #2b2a2a;
+    border: 2px solid rgb(100, 98, 98);
+    border-top: none;
+    box-shadow:0 0 100px 10px rgb(100, 98, 98);
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    border-radius: 10px;
 }
 
 
@@ -68,6 +120,26 @@ main {
     text-align: center;
 }
 .moneyOptions button{
+    width: 90%;
+    height: 50px;
+    font-size: 1.5rem;
+}
+.levelOptions{
+    height: 220px;
+    border-radius: 10px;
+    border: 2px solid black;
+    margin-top: 100px;
+    display: none;
+    flex-direction: column;
+    position: absolute;
+    z-index: 3;
+    justify-content: space-around;
+    align-items: center;
+    width: 90%;
+    padding-bottom: 10px;
+    background-color: rgb(89 89 89 / 79%);
+}
+.levelOptions button{
     width: 90%;
     height: 50px;
     font-size: 1.5rem;
@@ -106,10 +178,11 @@ main {
     background-color: #4CAF50;
     width: 100%;
     color: white;
+    text-align: center;
     margin-top: 10px;
     border: none;
     padding: 10px 100px;
-    border-radius: 5px;
+    border-radius: 50px;
     cursor: pointer;
     transition: background-color 0.3s;
 }
@@ -149,7 +222,7 @@ main {
     align-items: center;
     text-align: center;
     background-color:#161616;
-    width: 100vw;
+    width: 98%;
     max-height:95%;
     overflow-y: scroll;
     overflow-x: hidden;
@@ -251,4 +324,17 @@ main {
     z-index: -1;
     width: 100%;
     background-image: linear-gradient(100deg, #ead39a, #dba228);
+}
+@media screen and (max-width:320px) {
+    .options{
+        top: 0;
+        width: 72%;
+        border-radius: 0 0 70px 70px ; 
+    }
+    .winner{
+        top: 0;
+        font-size: 0.7rem;
+        width: 72%;
+        border-radius: 0 0 70px 70px ; 
+    }
 }
