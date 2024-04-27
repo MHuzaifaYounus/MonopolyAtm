@@ -7,10 +7,10 @@ let propertyOwner
 let players = []
 let property
 let playersBalance = {
-    playerId1: 99,
-    playerId2: 99,
-    playerId3: 99,
-    playerId4: 99,
+    playerId1: 1500,
+    playerId2: 1500,
+    playerId3: 1500,
+    playerId4: 1500,
 }
 let levels = {
     propertyId1: 1,
@@ -102,10 +102,11 @@ function checkPropertyOwner(propertycode) {
 }
 
 function getOptions(codeid) {
-
+    document.querySelector(".players-box").scrollTop = 0
     if ((codeid).includes("player")) {
         if (players.includes(codeid)) {
             console.log(`Already exit`);
+            document.querySelector(".options").style.display = "flex"
             document.querySelector("#paymoney").style.display = "block"
             document.querySelector("#collectmoney").style.display = "block"
             document.querySelector("#paymoney").addEventListener("click", (e) => {
@@ -124,7 +125,7 @@ function getOptions(codeid) {
 
                                 document.querySelector(`.${codeid}`).innerText = `Balance: 0`
 
-                               
+
                                 playersBalance[codeid] = 0
                                 for (let index = 0; index < baughtProperties[codeid].length; index++) {
                                     for (let i = 0; i < baughtprops.length; i++) {
@@ -173,7 +174,7 @@ function getOptions(codeid) {
 
                                 document.querySelector(`.${codeid}`).innerText = `Balance: 0`
 
-                            
+
                                 playersBalance[codeid] = 0
                                 for (let index = 0; index < baughtProperties[codeid].length; index++) {
                                     for (let i = 0; i < baughtprops.length; i++) {
@@ -248,13 +249,10 @@ function getOptions(codeid) {
 
         }
         else {
+            getPlayers(codeid)
+            document.querySelector("#container").style.display = "none"
 
-            document.querySelector("#setplayers").style.display = "block"
-            document.querySelector("#setplayers").addEventListener("click", (e) => {
-                getPlayers(codeid)
-                document.querySelector("#setplayers").style.display = "none"
-                document.querySelector("#container").style.display = "none"
-            })
+
         }
     }
 
@@ -262,6 +260,7 @@ function getOptions(codeid) {
     else if ((codeid).includes("property")) {
 
         if (baughtprops.includes(codeid)) {
+            document.querySelector(".options").style.display = "flex"
             document.querySelector("#pay").style.display = "block"
             document.querySelector("#changelevel").style.display = "block"
             notInList = false
@@ -316,7 +315,7 @@ function getOptions(codeid) {
                                         removePlayer("playerId1")
 
 
-                           
+
                                         if (players.length === 1) {
                                             winner()
                                         }
@@ -391,7 +390,7 @@ function getOptions(codeid) {
                                         removePlayer("playerId2")
 
 
-                          
+
                                         if (players.length === 1) {
                                             winner()
                                         }
@@ -621,239 +620,234 @@ function getOptions(codeid) {
         }
 
         if (notInList) {
-            document.querySelector("#buy").style.display = "block"
-            document.querySelector("#buy").addEventListener("click", (e) => {
-                playerclicked = false
 
-                document.querySelector(".players-box").style.zIndex = "2"
-                document.querySelector("#main-text").style.display = "block"
-                document.querySelector("#container").style.display = "none"
+            playerclicked = false
 
+            document.querySelector(".players-box").style.zIndex = "2"
+            document.querySelector("#main-text").style.display = "block"
+            document.querySelector("#container").style.display = "none"
+            if (players.includes("playerId1")) {
+                document.querySelector(".player1").addEventListener('click', (e) => {
+                    if (!baughtprops.includes(codeid)) {
 
-
-                if (players.includes("playerId1")) {
-                    document.querySelector(".player1").addEventListener('click', (e) => {
-                        if (!baughtprops.includes(codeid)) {
-
-                            if (playerclicked == false) {
-                                playerclicked = true
-                                playercode = ".playerId1"
-                                document.querySelector(playercode).innerText = `Balance: ${playersBalance["playerId1"] -= properties[codeid][0]}`
+                        if (playerclicked == false) {
+                            playerclicked = true
+                            playercode = ".playerId1"
+                            document.querySelector(playercode).innerText = `Balance: ${playersBalance["playerId1"] -= properties[codeid][0]}`
 
 
-                                if (playersBalance["playerId1"] < 0) {
+                            if (playersBalance["playerId1"] < 0) {
 
-                                    for (let index = 0; index < baughtProperties["playerId1"].length; index++) {
-                                        for (let i = 0; i < baughtprops.length; i++) {
-                                            if (baughtProperties["playerId1"].includes(baughtprops[i])) {
-                                                levels[baughtprops[i]] = 1
-                                                baughtprops.splice(i, 1)
-                                                console.log(baughtprops);
-                                                break
-                                            }
+                                for (let index = 0; index < baughtProperties["playerId1"].length; index++) {
+                                    for (let i = 0; i < baughtprops.length; i++) {
+                                        if (baughtProperties["playerId1"].includes(baughtprops[i])) {
+                                            levels[baughtprops[i]] = 1
+                                            baughtprops.splice(i, 1)
+                                            console.log(baughtprops);
+                                            break
                                         }
-
                                     }
 
-                                    for (let index = 0; index <= 22; index++) {
-                                        baughtProperties["playerId1"].pop()
-
-                                    }
-
-
-                                    document.querySelector(".playerId1").innerText = `Balance: 0`
-                                    playersBalance["playerId1"] = 0
-                                    document.querySelector(".player1").className += " dead"
-                                    removePlayer("playerId1")
-
-
-                                    console.log(baughtprops.length);
-                                    if (players.length === 1) {
-                                        winner()
-                                    }
                                 }
-                                else {
-                                    baughtProperties["playerId1"].push(codeid)
-                                    baughtprops.push(codeid)
-                                    console.log(baughtprops);
+
+                                for (let index = 0; index <= 22; index++) {
+                                    baughtProperties["playerId1"].pop()
+
                                 }
 
 
-                                document.querySelector(".players-box").style.zIndex = "0"
-                                document.querySelector("#buy").style.display = "none"
-                                document.querySelector("#main-text").style.display = "none"
+                                document.querySelector(".playerId1").innerText = `Balance: 0`
+                                playersBalance["playerId1"] = 0
+                                document.querySelector(".player1").className += " dead"
+                                removePlayer("playerId1")
 
 
+                                console.log(baughtprops.length);
+                                if (players.length === 1) {
+                                    winner()
+                                }
                             }
+                            else {
+                                baughtProperties["playerId1"].push(codeid)
+                                baughtprops.push(codeid)
+                                console.log(baughtprops);
+                            }
+
+
+                            document.querySelector(".players-box").style.zIndex = "0"
+                            document.querySelector("#buy").style.display = "none"
+                            document.querySelector("#main-text").style.display = "none"
+
+
                         }
-                    }, { once: true })
-                }
+                    }
+                }, { once: true })
+            }
 
-                if (players.includes("playerId2")) {
-                    document.querySelector(".player2").addEventListener('click', (e) => {
+            if (players.includes("playerId2")) {
+                document.querySelector(".player2").addEventListener('click', (e) => {
 
-                        if (!baughtprops.includes(codeid)) {
+                    if (!baughtprops.includes(codeid)) {
 
-                            if (playerclicked == false) {
-                                playerclicked = true
-                                playercode = ".playerId2"
+                        if (playerclicked == false) {
+                            playerclicked = true
+                            playercode = ".playerId2"
 
-                                console.log(baughtProperties["playerId2"]);
-                                document.querySelector(playercode).innerText = `Balance: ${playersBalance["playerId2"] -= properties[codeid][0]}`
-                                if (playersBalance["playerId2"] < 0) {
+                            console.log(baughtProperties["playerId2"]);
+                            document.querySelector(playercode).innerText = `Balance: ${playersBalance["playerId2"] -= properties[codeid][0]}`
+                            if (playersBalance["playerId2"] < 0) {
 
-                                    for (let index = 0; index < baughtProperties["playerId2"].length; index++) {
-                                        for (let i = 0; i < baughtprops.length; i++) {
-                                            if (baughtProperties["playerId2"].includes(baughtprops[i])) {
-                                                levels[baughtprops[i]] = 1
-                                                baughtprops.splice(i, 1)
-                                                console.log(baughtprops);
-                                                break
-                                            }
+                                for (let index = 0; index < baughtProperties["playerId2"].length; index++) {
+                                    for (let i = 0; i < baughtprops.length; i++) {
+                                        if (baughtProperties["playerId2"].includes(baughtprops[i])) {
+                                            levels[baughtprops[i]] = 1
+                                            baughtprops.splice(i, 1)
+                                            console.log(baughtprops);
+                                            break
                                         }
-
-                                    }
-                                    for (let index = 0; index <= 22; index++) {
-                                        baughtProperties["playerId2"].pop()
-
                                     }
 
-                                    document.querySelector(".playerId2").innerText = `Balance: 0`
-                                    playersBalance["playerId2"] = 0
-                                    document.querySelector(".player2").className += " dead"
-                                    removePlayer("playerId2")
-
-
-                                    if (players.length === 1) {
-                                        winner()
-                                    }
                                 }
-                                else {
-                                    baughtProperties["playerId2"].push(codeid)
-                                    baughtprops.push(codeid)
+                                for (let index = 0; index <= 22; index++) {
+                                    baughtProperties["playerId2"].pop()
+
                                 }
-                                document.querySelector(".players-box").style.zIndex = "0"
-                                document.querySelector("#buy").style.display = "none"
-                                document.querySelector("#main-text").style.display = "none"
+
+                                document.querySelector(".playerId2").innerText = `Balance: 0`
+                                playersBalance["playerId2"] = 0
+                                document.querySelector(".player2").className += " dead"
+                                removePlayer("playerId2")
 
 
+                                if (players.length === 1) {
+                                    winner()
+                                }
                             }
+                            else {
+                                baughtProperties["playerId2"].push(codeid)
+                                baughtprops.push(codeid)
+                            }
+                            document.querySelector(".players-box").style.zIndex = "0"
+                            document.querySelector("#buy").style.display = "none"
+                            document.querySelector("#main-text").style.display = "none"
+
+
                         }
-                    }, { once: true })
+                    }
+                }, { once: true })
 
-                }
+            }
 
-                if (players.includes("playerId3")) {
+            if (players.includes("playerId3")) {
 
-                    document.querySelector(".player3").addEventListener('click', (e) => {
-                        if (!baughtprops.includes(codeid)) {
+                document.querySelector(".player3").addEventListener('click', (e) => {
+                    if (!baughtprops.includes(codeid)) {
 
-                            if (playerclicked == false) {
-                                playerclicked = true
-                                playercode = ".playerId3"
+                        if (playerclicked == false) {
+                            playerclicked = true
+                            playercode = ".playerId3"
 
-                                console.log(baughtProperties["playerId3"]);
-                                document.querySelector(playercode).innerText = `Balance: ${playersBalance["playerId3"] -= properties[codeid][0]}`
-                                if (playersBalance["playerId3"] < 0) {
+                            console.log(baughtProperties["playerId3"]);
+                            document.querySelector(playercode).innerText = `Balance: ${playersBalance["playerId3"] -= properties[codeid][0]}`
+                            if (playersBalance["playerId3"] < 0) {
 
-                                    for (let index = 0; index < baughtProperties["playerId3"].length; index++) {
-                                        for (let i = 0; i < baughtprops.length; i++) {
-                                            if (baughtProperties["playerId3"].includes(baughtprops[i])) {
-                                                levels[baughtprops[i]] = 1
-                                                baughtprops.splice(i, 1)
-                                                console.log(baughtprops);
-                                                break
-                                            }
+                                for (let index = 0; index < baughtProperties["playerId3"].length; index++) {
+                                    for (let i = 0; i < baughtprops.length; i++) {
+                                        if (baughtProperties["playerId3"].includes(baughtprops[i])) {
+                                            levels[baughtprops[i]] = 1
+                                            baughtprops.splice(i, 1)
+                                            console.log(baughtprops);
+                                            break
                                         }
-
-                                    }
-                                    for (let index = 0; index <= 22; index++) {
-                                        baughtProperties["playerId3"].pop()
-
                                     }
 
-                                    document.querySelector(".playerId1").innerText = `Balance: 0`
-                                    playersBalance["playerId3"] = 0
-                                    document.querySelector(".player3").className += " dead"
-                                    removePlayer("playerId3")
-
-
-                                    if (players.length === 1) {
-                                        winner()
-                                    }
                                 }
-                                else {
-                                    baughtProperties["playerId3"].push(codeid)
-                                    baughtprops.push(codeid)
-                                }
-                                document.querySelector(".players-box").style.zIndex = "0"
-                                document.querySelector("#buy").style.display = "none"
-                                document.querySelector("#main-text").style.display = "none"
+                                for (let index = 0; index <= 22; index++) {
+                                    baughtProperties["playerId3"].pop()
 
+                                }
+
+                                document.querySelector(".playerId1").innerText = `Balance: 0`
+                                playersBalance["playerId3"] = 0
+                                document.querySelector(".player3").className += " dead"
+                                removePlayer("playerId3")
+
+
+                                if (players.length === 1) {
+                                    winner()
+                                }
                             }
+                            else {
+                                baughtProperties["playerId3"].push(codeid)
+                                baughtprops.push(codeid)
+                            }
+                            document.querySelector(".players-box").style.zIndex = "0"
+                            document.querySelector("#buy").style.display = "none"
+                            document.querySelector("#main-text").style.display = "none"
+
                         }
-                    }, { once: true })
-                }
+                    }
+                }, { once: true })
+            }
 
 
-                if (players.includes("playerId4")) {
+            if (players.includes("playerId4")) {
 
-                    document.querySelector(".player4").addEventListener('click', (e) => {
-                        if (!baughtprops.includes(codeid)) {
+                document.querySelector(".player4").addEventListener('click', (e) => {
+                    if (!baughtprops.includes(codeid)) {
 
-                            if (playerclicked == false) {
-                                playerclicked = true
-                                playercode = ".playerId4"
+                        if (playerclicked == false) {
+                            playerclicked = true
+                            playercode = ".playerId4"
 
-                                console.log(baughtProperties["playerId4"]);
-                                document.querySelector(playercode).innerText = `Balance: ${playersBalance["playerId4"] -= properties[codeid][0]}`
-                                if (playersBalance["playerId4"] < 0) {
+                            console.log(baughtProperties["playerId4"]);
+                            document.querySelector(playercode).innerText = `Balance: ${playersBalance["playerId4"] -= properties[codeid][0]}`
+                            if (playersBalance["playerId4"] < 0) {
 
-                                    for (let index = 0; index < baughtProperties["playerId4"].length; index++) {
-                                        for (let i = 0; i < baughtprops.length; i++) {
-                                            if (baughtProperties["playerId4"].includes(baughtprops[i])) {
-                                                levels[baughtprops[i]] = 1
-                                                baughtprops.splice(i, 1)
-                                                console.log(baughtprops);
-                                                break
-                                            }
+                                for (let index = 0; index < baughtProperties["playerId4"].length; index++) {
+                                    for (let i = 0; i < baughtprops.length; i++) {
+                                        if (baughtProperties["playerId4"].includes(baughtprops[i])) {
+                                            levels[baughtprops[i]] = 1
+                                            baughtprops.splice(i, 1)
+                                            console.log(baughtprops);
+                                            break
                                         }
-
-                                    }
-                                    for (let index = 0; index <= 22; index++) {
-                                        baughtProperties["playerId4"].pop()
-
                                     }
 
-                                    document.querySelector(".playerId4").innerText = `Balance: 0`
-                                    playersBalance["playerId4"] = 0
-                                    document.querySelector(".player4").className += " dead"
-                                    removePlayer("playerId4")
-
-                                    if (players.length === 1) {
-                                        winner()
-                                    }
                                 }
-                                else {
-                                    baughtProperties["playerId4"].push(codeid)
-                                    baughtprops.push(codeid)
-                                }
-                                document.querySelector(".players-box").style.zIndex = "0"
-                                document.querySelector("#buy").style.display = "none"
-                                document.querySelector("#main-text").style.display = "none"
+                                for (let index = 0; index <= 22; index++) {
+                                    baughtProperties["playerId4"].pop()
 
+                                }
+
+                                document.querySelector(".playerId4").innerText = `Balance: 0`
+                                playersBalance["playerId4"] = 0
+                                document.querySelector(".player4").className += " dead"
+                                removePlayer("playerId4")
+
+                                if (players.length === 1) {
+                                    winner()
+                                }
                             }
+                            else {
+                                baughtProperties["playerId4"].push(codeid)
+                                baughtprops.push(codeid)
+                            }
+                            document.querySelector(".players-box").style.zIndex = "0"
+                            document.querySelector("#buy").style.display = "none"
+                            document.querySelector("#main-text").style.display = "none"
+
                         }
-                    }, { once: true })
-                }
+                    }
+                }, { once: true })
+            }
 
-
-            })
         }
     }
     for (let index = 0; index < document.querySelector(".options").children.length; index++) {
         document.querySelector(".options").children[index].addEventListener("click", () => {
             document.querySelector(".options").style.display = "none"
+           
         })
     }
 
@@ -997,7 +991,7 @@ document.addEventListener("DOMContentLoaded", function () {
             getOptions(code.data)
             isCapturing = false;
             document.querySelector("#container").style.display = "none"
-            document.querySelector(".options").style.display = "flex"
+
 
         } else {
             resultContainer.innerText = 'Scanning QR code...';
@@ -1060,7 +1054,7 @@ document.addEventListener("DOMContentLoaded", function () {
                     getOptions(code.data)
                     isCapturing = false;
                     document.querySelector("#container").style.display = "none"
-                    document.querySelector(".options").style.display = "flex"
+
 
 
                 } else {
@@ -1073,21 +1067,24 @@ document.addEventListener("DOMContentLoaded", function () {
         reader.readAsDataURL(file);
     });
 
-    window.addEventListener('beforeunload', function () {
-        if (stream) {
-            stream.getTracks().forEach(track => {
-                track.stop();
-            });
-        }
-    });
+    // window.addEventListener('beforeunload', function () {
+    //     if (stream) {
+    //         stream.getTracks().forEach(track => {
+    //             track.stop();
+    //         });
+    //     }
+    // });
+    window.onbeforeunload = function () {
+        return 'Are you sure you want to leave?'; // Show confirmation message
+      };
 });
 
 
 function winner() {
     console.log(players[0]);
     document.querySelector(".winner").style.display = "flex"
-    document.querySelector(".winner").className += " " + players[0]+ "win"
-    document.querySelector("#winnerplayer").innerText = players[0].replace("Id","")
+    document.querySelector(".winner").className += " " + players[0] + "win"
+    document.querySelector("#winnerplayer").innerText = players[0].replace("Id", "")
 
 
 }
@@ -1098,3 +1095,5 @@ function removePlayer(codeid) {
         players.splice(h, 1);
     }
 }
+
+

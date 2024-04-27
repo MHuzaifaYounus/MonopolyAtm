@@ -325,7 +325,7 @@ main {
     width: 100%;
     background-image: linear-gradient(100deg, #ead39a, #dba228);
 }
-@media screen and (max-width:320px) {
+@media screen and (max-width:620px) {
     .options{
         top: 0;
         width: 72%;
