@@ -77,6 +77,58 @@ let playerclickedforcollectmoney = false
 let playerclickedforlevel = false
 
 
+function pairproperties(id) { 
+     
+    if(baughtProperties[id].includes("propertyId1")&& baughtProperties[id].includes("propertyId2")){
+        console.log("paired");
+        levels["propertyId1"] = 5
+        levels["propertyId2"] = 5
+    
+    }
+    if(baughtProperties[id].includes("propertyId3")&& baughtProperties[id].includes("propertyId4") && baughtProperties[id].includes("propertyId5")){
+        console.log("paired");
+        levels["propertyId3"] = 5
+        levels["propertyId4"] = 5
+        levels["propertyId5"] = 5
+    }
+    if(baughtProperties[id].includes("propertyId6")&& baughtProperties[id].includes("propertyId7") && baughtProperties[id].includes("propertyId8")){
+        console.log("paired");
+        levels["propertyId6"] = 5
+        levels["propertyId7"] = 5
+        levels["propertyId8"] = 5
+    }
+    if(baughtProperties[id].includes("propertyId9")&& baughtProperties[id].includes("propertyId10") && baughtProperties[id].includes("propertyId11")){
+        console.log("paired");
+        levels["propertyId9"] = 5
+        levels["propertyId10"] = 5
+        levels["propertyId11"] = 5
+    }
+    if(baughtProperties[id].includes("propertyId12")&& baughtProperties[id].includes("propertyId13") && baughtProperties[id].includes("propertyId14")){
+        console.log("paired");
+        levels["propertyId12"] = 5
+        levels["propertyId13"] = 5
+        levels["propertyId14"] = 5
+    }
+    if(baughtProperties[id].includes("propertyId15")&& baughtProperties[id].includes("propertyId16") && baughtProperties[id].includes("propertyId17")){
+        console.log("paired");
+        levels["propertyId15"] = 5
+        levels["propertyId16"] = 5
+        levels["propertyId17"] = 5
+    }
+    if(baughtProperties[id].includes("propertyId18")&& baughtProperties[id].includes("propertyId19") && baughtProperties[id].includes("propertyId20")){
+        console.log("paired");
+        levels["propertyId18"] = 5
+        levels["propertyId19"] = 5
+        levels["propertyId20"] = 5
+    }
+    if(baughtProperties[id].includes("propertyId21")&& baughtProperties[id].includes("propertyId22")){
+        console.log("paired");
+        levels["propertyId21"] = 5        
+        levels["propertyId22"] = 5        
+
+    }
+}
+
 function checkPropertyOwner(propertycode) {
     baughtProperties.playerId1.forEach((e) => {
         if (e === propertycode) {
@@ -681,6 +733,7 @@ function getOptions(codeid) {
 
                         }
                     }
+                    pairproperties("playerId1")
                 }, { once: true })
             }
 
@@ -734,6 +787,7 @@ function getOptions(codeid) {
 
                         }
                     }
+                    pairproperties("playerId2")
                 }, { once: true })
 
             }
@@ -787,6 +841,7 @@ function getOptions(codeid) {
 
                         }
                     }
+                    pairproperties("playerId3")
                 }, { once: true })
             }
 
@@ -839,6 +894,7 @@ function getOptions(codeid) {
 
                         }
                     }
+                    pairproperties("playerId4")
                 }, { once: true })
             }
 
