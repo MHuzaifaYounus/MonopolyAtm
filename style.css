@@ -25,7 +25,19 @@ main {
     overflow-y: scroll;
     overflow-x: hidden;
 }
-
+#qrcodespdf{
+    position: absolute;
+   right: 20px;
+  bottom: 2px;
+  background-color: red;
+  fill: white;
+  width: 50px;
+  height: 50px;
+  padding: 0;
+}
+#qrcodespdf svg {
+    width: 20px;
+}
 .buttons {
     position: fixed;
     bottom: 10px;
